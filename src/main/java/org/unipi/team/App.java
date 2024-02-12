@@ -1,13 +1,20 @@
 package org.unipi.team;
 
+import org.unipi.team.input.Student;
+
 /**
  * Hello world!
  *
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main(String[] args) {
+        try {
+            CodeGenerator.generateDatabaseCode(Student.class);
+            System.out.println("Code generated successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Code generation failed.");
+        }
     }
 }

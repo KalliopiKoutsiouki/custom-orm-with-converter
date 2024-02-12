@@ -13,4 +13,6 @@ public @interface Database {
 
     String name();
     DataSource dbtype();
+    String username();
+    String password();
 }
