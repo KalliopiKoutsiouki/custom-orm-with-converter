@@ -1,7 +1,7 @@
 package org.unipi.team.annotation.consts;
 
 public enum DataSource {
-    H2 ("H2"),
+    H2 ("H2"  ),
     DERBY ("Derby"),
     MYSQL ("mySql"),
     MARIADB ("mariadb");

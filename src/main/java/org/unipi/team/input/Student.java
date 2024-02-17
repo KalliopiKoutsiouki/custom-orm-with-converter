@@ -5,8 +5,8 @@ import org.unipi.team.annotation.source.GenerateCompiledFile;
 import org.unipi.team.annotation.transaction.*;
 
 import java.util.List;
-//@GenerateCompiledFile()
-@Database(name="UnipiDB",dbtype= DataSource.H2, username = "sa", password = "1234")
+@GenerateCompiledFile()
+@Database(name="UnipiDB",dbtype= DataSource.DERBY, username = "sa", password = "1234")
 @Table(name="Student")
 public class Student {
     @ID
@@ -36,4 +36,3 @@ public class Student {
         return 0;
     }
 }
-

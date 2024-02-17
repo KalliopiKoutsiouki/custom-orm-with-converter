@@ -1,5 +1,6 @@
 package org.unipi.team;
 
+import org.unipi.team.generator.CodeGenerator;
 import org.unipi.team.input.Student;
 
 /**
@@ -10,7 +11,7 @@ public class App
 {
     public static void main(String[] args) {
         try {
-            CodeGenerator.generateDatabaseCode(Student.class);
+            CodeGenerator.generateCodeAndOutputFile(Student.class);
             System.out.println("Code generated successfully.");
         } catch (Exception e) {
             e.printStackTrace();
