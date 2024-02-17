@@ -3,13 +3,18 @@ package org.unipi.team.generator.impl;
 import org.unipi.team.annotation.transaction.Database;
 import org.unipi.team.generator.AnnotationCodeGenerator;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Properties;
 
 public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCodeGenerator {
 
     private StringBuilder sb;
+    private  Properties properties = new Properties();
     public DatabaseConnectionAnnotationCodeGenerator(StringBuilder sb) {
         this.sb = sb;
+        this.properties = getDBCredentials();
     }
 
     @Override
@@ -22,10 +27,10 @@ public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCode
             sb.append("\"");
             sb.append(";\n");
             sb.append("        String username = \"")
-                    .append(dbAnnotation.username())
+                    .append(properties.get("datasource.username"))
                     .append("\";\n");
             sb.append("        String password = \"")
-                    .append(dbAnnotation.password())
+                    .append(properties.get("datasource.password"))
                     .append("\";\n");
             sb.append("        Connection connection = null;\n");
             sb.append("        try {\n");
@@ -40,6 +45,15 @@ public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCode
             throw new Exception("Annotation not found");
         }
 
+    }
+
+    private Properties getDBCredentials() {
+        try {
+            properties.load(DatabaseConnectionAnnotationCodeGenerator.class.getResourceAsStream("/connection.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
     }
 
     private void configureJdbcDriver(Database dbAnnotation) {

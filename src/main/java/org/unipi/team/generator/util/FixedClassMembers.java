@@ -5,9 +5,9 @@ import static org.unipi.team.generator.util.CommonImports.*;
 public class FixedClassMembers {
 
     private static final String MAIN_EXECUTE_METHOD = "createTable()";
-
+    private static final String PACKAGE = "package org.unipi.team.output;\n\n";
     public static void createClassHeader(StringBuilder sb, boolean hasDB) {
-        sb.append("package org.unipi.team.output;\n\n");
+        sb.append(PACKAGE);
        if (hasDB) {
            sb.append(IMPORT_SQL_STATEMENT);
            sb.append(IMPORT_DRIVER_MANAGER);

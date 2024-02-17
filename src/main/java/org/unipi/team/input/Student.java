@@ -6,7 +6,7 @@ import org.unipi.team.annotation.transaction.*;
 
 import java.util.List;
 @GenerateCompiledFile()
-@Database(name="UnipiDB",dbtype= DataSource.DERBY, username = "sa", password = "1234")
+@Database(name="UnipiDB",dbtype= DataSource.H2)
 @Table(name="Student")
 public class Student {
     @ID
@@ -20,7 +20,6 @@ public class Student {
     String fullName;
     @Field(name="PostGraduate",type="Boolean")
     boolean postGraduate;
-
 
     //Για τη μέθοδο αυτή μπορείτε να δοκιμάστε να επιστρέφετε
     //List<Student>

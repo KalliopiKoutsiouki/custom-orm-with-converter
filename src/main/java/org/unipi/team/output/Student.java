@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class Student {
 
     private static Connection connect() {
-        String connectionString = "jdbc:derby:UnipiDB";
+        String connectionString = "jdbc:h2:~/UnipiDB";
         String username = "sa";
         String password = "1234";
         Connection connection = null;
