@@ -6,8 +6,57 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Student {
+public class StudentGenerated {
 
+   private String AM;
+
+   private String email;
+
+   private int yearOfStudies;
+
+   private String fullName;
+
+   private boolean postGraduate;
+
+    public String getAM() {
+        return this.AM;
+    }
+
+    public void setAM(String AM) {
+        this.AM = AM;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getYearOfStudies() {
+        return this.yearOfStudies;
+    }
+
+    public void setYearOfStudies(int yearOfStudies) {
+        this.yearOfStudies = yearOfStudies;
+    }
+
+    public String getFullName() {
+        return this.fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public boolean getPostGraduate() {
+        return this.postGraduate;
+    }
+
+    public void setPostGraduate(boolean postGraduate) {
+        this.postGraduate = postGraduate;
+    }
     private static Connection connect() {
         String connectionString = "jdbc:h2:~/UnipiDB";
         String username = "sa";
@@ -17,7 +66,7 @@ public class Student {
             connection = DriverManager.getConnection(connectionString, username, password);
             System.out.println("Connection successful!");
         } catch (SQLException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentGenerated.class.getName()).log(Level.SEVERE, null, ex);
         }
         return connection;
     }
@@ -32,7 +81,7 @@ public class Student {
             connection.close();
             System.out.println("Table successfully created");
         } catch (SQLException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentGenerated.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

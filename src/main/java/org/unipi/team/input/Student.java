@@ -1,5 +1,8 @@
 package org.unipi.team.input;
 
+
+import org.example.annotation.GetterMy;
+import org.example.annotation.SetterMy;
 import org.unipi.team.annotation.consts.DataSource;
 import org.unipi.team.annotation.source.GenerateCompiledFile;
 import org.unipi.team.annotation.transaction.*;
@@ -8,9 +11,12 @@ import java.util.List;
 @GenerateCompiledFile()
 @Database(name="UnipiDB",dbtype= DataSource.H2)
 @Table(name="Student")
+@GetterMy
+@SetterMy
 public class Student {
     @ID
     @Field(name="AM",type="Text")
+
     String AM;
     @Field(name="Email",type="Text", required=true)
     String email;

@@ -2,6 +2,7 @@ package org.unipi.team.generator.impl;
 
 import org.unipi.team.annotation.transaction.Database;
 import org.unipi.team.generator.AnnotationCodeGenerator;
+import org.unipi.team.input.Student;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCode
     public void generate(StringBuilder sb,  Annotation annotation, String className) throws Exception {
         if (annotation != null) {
             Database dbAnnotation = (Database) annotation;
+            className = className + "Generated";
             sb.append("    private static Connection connect() {\n");
             sb.append("        String connectionString = \"jdbc:");
             configureJdbcDriver(dbAnnotation);

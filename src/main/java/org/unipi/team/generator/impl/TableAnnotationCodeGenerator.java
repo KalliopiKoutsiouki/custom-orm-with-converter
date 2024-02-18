@@ -16,7 +16,9 @@ public class TableAnnotationCodeGenerator implements AnnotationCodeGenerator {
 
     @Override
     public void generate(StringBuilder sb, Annotation annotation, String className) throws Exception {
-        Class<?> clazz = Class.forName("org.unipi.team.input." + className);
+
+        Class<?> clazz = Class.forName("org.unipi.team.input." + className );
+        className = className + "Generated";
         if (annotation != null) {
             Table tableAnnotation = (Table) annotation;
             sb.append("    private static void createTable() {\n");

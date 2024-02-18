@@ -6,7 +6,11 @@ import org.unipi.team.generator.impl.TableAnnotationCodeGenerator;
 import org.unipi.team.generator.util.FileGenerator;
 import org.unipi.team.generator.util.FixedClassMembers;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class CodeGenerator {
@@ -14,12 +18,33 @@ public class CodeGenerator {
     private static StringBuilder sb = new StringBuilder();
     private static String className;
 
-    public static void generateCodeAndOutputFile(Class<?> clazz) {
+    public static String compiledGettersSetters() {
+        String filePath = "target/generated-sources/annotations/org/unipi/team/input/StudentGenerated.java";
+
+        try {
+            // Read the contents of the generated .java file
+            String classString = new String(Files.readAllBytes(Paths.get(filePath)));
+            classString.trim();
+            int lastIndex = classString.length() - 1;
+            // Remove the last character
+            String removeClose = classString.substring(0, lastIndex-3);
+//            String removeClose = classString.substring(0, classString.length() - 1);
+            System.out.println(removeClose);
+        return removeClose;
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+        public static void generateCodeAndOutputFile(Class<?> clazz) {
         String fullClassName = clazz.getName();
         className = getNameWithoutPath(fullClassName);
         java.lang.annotation.Annotation[] annotations = clazz.getAnnotations();
         FixedClassMembers.createClassHeader(sb, clazz.isAnnotationPresent(Database.class));
-        FixedClassMembers.createClassDeclaration(sb,className);
+//        FixedClassMembers.createClassDeclaration(sb,className);
+
+        sb.append(compiledGettersSetters());
         if(clazz.isAnnotationPresent(Database.class)) {
             createDatabaseCode(annotations);
         }
