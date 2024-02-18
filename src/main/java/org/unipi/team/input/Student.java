@@ -21,6 +21,10 @@ public class Student {
     @Field(name="PostGraduate",type="Boolean")
     boolean postGraduate;
 
+
+    @DBMethod(type="Insert")
+    public void insertStudent() { }
+
     //Για τη μέθοδο αυτή μπορείτε να δοκιμάστε να επιστρέφετε
     //List<Student>
     @DBMethod(type="SelectAll")
