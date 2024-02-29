@@ -1,17 +1,17 @@
 package org.unipi.team.generator.impl;
 
 import org.unipi.team.annotation.transaction.Field;
+import org.unipi.team.generator.MethodCodeGenerator;
 
 import java.util.Arrays;
 import java.util.Date;
 
-public class InsertMethodCodeGenerator extends DBMethodAnnotationCodeGenerator {
+public class InsertMethodCodeGenerator extends MethodCodeGenerator {
     public InsertMethodCodeGenerator(StringBuilder sb) {
-        super(sb);
     }
 
     @Override
-    protected void generateMethod(StringBuilder sb, Class<?> clazz) {
+    public void generateMethod(StringBuilder sb, Class<?> clazz) {
         sb.append("    public static void insert").append(clazz.getSimpleName()).append("(").append(clazz.getSimpleName()).append(" ").append(clazz.getSimpleName().toLowerCase()).append("){\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");

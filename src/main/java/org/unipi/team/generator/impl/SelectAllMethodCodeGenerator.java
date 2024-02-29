@@ -1,14 +1,14 @@
 package org.unipi.team.generator.impl;
 
 
+import org.unipi.team.generator.MethodCodeGenerator;
 
-public class SelectAllMethodCodeGenerator extends DBMethodAnnotationCodeGenerator {
+public class SelectAllMethodCodeGenerator extends MethodCodeGenerator {
     public SelectAllMethodCodeGenerator(StringBuilder sb) {
-        super(sb);
     }
 
     @Override
-    protected void generateMethod(StringBuilder sb, Class<?> clazz) {
+    public void generateMethod(StringBuilder sb, Class<?> clazz) {
         sb.append("    public static List<").append(clazz.getSimpleName()).append("> getAll").append(clazz.getSimpleName()).append("s() {\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");

@@ -1,11 +1,9 @@
 package org.unipi.team.input;
 
 import org.unipi.team.annotation.consts.DataSource;
-import org.unipi.team.annotation.source.GenerateCompiledFile;
 import org.unipi.team.annotation.transaction.*;
 
 import java.util.List;
-@GenerateCompiledFile()
 @Database(name="UnipiDB",dbtype= DataSource.H2)
 @Table(name="Student")
 public class Student {

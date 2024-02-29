@@ -1,12 +1,13 @@
 package org.unipi.team.generator.impl;
 
-public class DeleteOneMethodCodeGenerator extends DBMethodAnnotationCodeGenerator {
+import org.unipi.team.generator.MethodCodeGenerator;
+
+public class DeleteOneMethodCodeGenerator extends MethodCodeGenerator {
     public DeleteOneMethodCodeGenerator(StringBuilder sb) {
-        super(sb);
     }
 
     @Override
-    protected void generateMethod(StringBuilder sb, Class<?> clazz) {
+    public void generateMethod(StringBuilder sb, Class<?> clazz) {
         sb.append("    public static int delete").append(clazz.getSimpleName()).append("(String AM) {\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");
