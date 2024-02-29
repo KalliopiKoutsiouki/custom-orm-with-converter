@@ -28,7 +28,7 @@ public class Student {
     //Για τη μέθοδο αυτή μπορείτε να δοκιμάστε να επιστρέφετε
     //List<Student>
     @DBMethod(type="SelectAll")
-    public List<String> getAllStudents(){
+    public List<Student> getAllStudents(){
         return null;
     }
 
@@ -37,5 +37,10 @@ public class Student {
     @DBMethod(type="DeleteOne")
     public int deleteStudents(String AM){
         return 0;
+    }
+
+    @DBMethod(type ="SelectByAm")
+    public Student getStudentByAm(String AM) {
+        return null;
     }
 }
