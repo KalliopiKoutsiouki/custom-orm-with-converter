@@ -37,6 +37,7 @@ public class CodeGenerator {
         }
     }
 
+
         public static void generateCodeAndOutputFile(Class<?> clazz) {
         String fullClassName = clazz.getName();
         className = getNameWithoutPath(fullClassName);
