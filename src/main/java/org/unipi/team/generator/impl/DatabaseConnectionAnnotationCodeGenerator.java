@@ -2,9 +2,7 @@ package org.unipi.team.generator.impl;
 
 import org.unipi.team.annotation.transaction.Database;
 import org.unipi.team.generator.AnnotationCodeGenerator;
-import org.unipi.team.input.Student;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.Properties;

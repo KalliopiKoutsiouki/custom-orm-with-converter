@@ -6,11 +6,9 @@ import org.example.annotation.ArgsConstructor;
 import org.example.annotation.Getters;
 import org.example.annotation.Setters;
 import org.unipi.team.annotation.consts.DataSource;
-import org.unipi.team.annotation.source.GenerateCompiledFile;
 import org.unipi.team.annotation.transaction.*;
 
 import java.util.List;
-@GenerateCompiledFile()
 @Database(name="UnipiDB",dbtype= DataSource.H2)
 @Table(name="Student")
 @Getters
@@ -30,10 +28,14 @@ public class Student {
     @Field(name="PostGraduate",type="Boolean")
     boolean postGraduate;
 
+
+    @DBMethod(type="Insert")
+    public void insertStudent() { }
+
     //Για τη μέθοδο αυτή μπορείτε να δοκιμάστε να επιστρέφετε
     //List<Student>
     @DBMethod(type="SelectAll")
-    public List<String> getAllStudents(){
+    public List<Student> getAllStudents(){
         return null;
     }
 
@@ -42,5 +44,10 @@ public class Student {
     @DBMethod(type="DeleteOne")
     public int deleteStudents(String AM){
         return 0;
+    }
+
+    @DBMethod(type ="SelectByAm")
+    public Student getStudentByAm(String AM) {
+        return null;
     }
 }
