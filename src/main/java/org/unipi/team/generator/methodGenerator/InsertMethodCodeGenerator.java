@@ -1,7 +1,6 @@
-package org.unipi.team.generator.impl;
+package org.unipi.team.generator.methodGenerator;
 
 import org.unipi.team.annotation.transaction.Field;
-import org.unipi.team.generator.MethodCodeGenerator;
 
 import java.util.Arrays;
 import java.util.Date;

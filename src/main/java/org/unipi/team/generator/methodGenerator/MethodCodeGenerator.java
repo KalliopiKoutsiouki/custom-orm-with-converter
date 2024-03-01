@@ -1,4 +1,4 @@
-package org.unipi.team.generator;
+package org.unipi.team.generator.methodGenerator;
 
 import org.unipi.team.annotation.transaction.Field;
 import org.unipi.team.annotation.transaction.Table;

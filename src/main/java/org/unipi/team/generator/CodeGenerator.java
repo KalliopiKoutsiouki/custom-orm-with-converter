@@ -2,11 +2,10 @@ package org.unipi.team.generator;
 
 import org.unipi.team.annotation.transaction.DBMethod;
 import org.unipi.team.annotation.transaction.Database;
-import org.unipi.team.generator.impl.DBMethodAnnotationCodeGenerator;
-import org.unipi.team.generator.impl.DatabaseConnectionAnnotationCodeGenerator;
-import org.unipi.team.generator.impl.TableAnnotationCodeGenerator;
-import org.unipi.team.generator.util.FileGenerator;
-import org.unipi.team.generator.util.FixedClassMembers;
+import org.unipi.team.generator.annotationGenerator.AnnotationCodeGenerator;
+import org.unipi.team.generator.annotationGenerator.AnnotationCodeGeneratorFactory;
+import org.unipi.team.util.FileGenerator;
+import org.unipi.team.util.FixedClassMembers;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -21,27 +20,8 @@ import java.util.stream.Stream;
 public class CodeGenerator {
 
     private static StringBuilder sb = new StringBuilder();
+    private static final String FILEPATH = "target/generated-sources/annotations/org/unipi/team/input/StudentGenerated.java";
     private static String className;
-
-    // getters, setters & all args constructor
-    public static String compiledSourceAnnotations() {
-        String filePath = "target/generated-sources/annotations/org/unipi/team/input/StudentGenerated.java";
-
-        try {
-            // Read the contents of the generated .java file
-            String classString = new String(Files.readAllBytes(Paths.get(filePath)));
-            classString.trim();
-            int lastIndex = classString.length() - 1;
-            // Remove the last character
-            String removeClose = classString.substring(0, lastIndex-3);
-            System.out.println(removeClose);
-        return removeClose;
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
         public static void generateCodeAndOutputFile(Class<?> clazz) {
         String fullClassName = clazz.getName();
@@ -58,7 +38,7 @@ public class CodeGenerator {
 
         FixedClassMembers.createClassHeader(sb, clazz.isAnnotationPresent(Database.class),hasDBMethodAnnotation);
 
-        sb.append(compiledSourceAnnotations());
+        sb.append(readFromCompiledSourceAnnotations());
         if(clazz.isAnnotationPresent(Database.class)) {
             createDatabaseCode(annotations);
         }
@@ -66,6 +46,24 @@ public class CodeGenerator {
         FixedClassMembers.closeClassDefinition(sb);
         FileGenerator.generateOutputFile(sb, className);
     }
+
+    // getters, setters, constructors
+    public static String readFromCompiledSourceAnnotations() {
+        try {
+            // Read the contents of the generated .java file
+            String classString = new String(Files.readAllBytes(Paths.get(FILEPATH)));
+            classString.trim();
+            int lastIndex = classString.length() - 1;
+            // Remove the last character
+            String removeClose = classString.substring(0, lastIndex-3);
+            System.out.println(removeClose);
+            return removeClose;
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private static Annotation[] getMethodAnnotations (Class<?> clazz){
         Method[] methods = clazz.getDeclaredMethods();
@@ -80,30 +78,14 @@ public class CodeGenerator {
         Arrays.stream(annotations)
                 .sequential()
                 .forEach(annotation -> {
-                    AnnotationCodeGenerator generator = CodeGenerator.getGenerator(annotation);
+                    String annotationName = getNameWithoutPath(annotation.annotationType().getName());
+                    AnnotationCodeGenerator generator = AnnotationCodeGeneratorFactory.getGenerator(sb, annotationName);
                     try {
                         generator.generate(sb, annotation, className);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 });
-    }
-
-    private static AnnotationCodeGenerator getGenerator(Annotation annotation) {
-        String annotationName = getNameWithoutPath(annotation.annotationType().getName());
-        try {
-            switch (annotationName) {
-                case "Database":
-                    return new DatabaseConnectionAnnotationCodeGenerator(sb);
-                case "Table":
-                    return new TableAnnotationCodeGenerator(sb);
-                case "DBMethod":
-                    return new DBMethodAnnotationCodeGenerator(sb);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
     }
 
     private static String getNameWithoutPath(String className) {

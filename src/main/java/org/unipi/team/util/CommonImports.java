@@ -1,4 +1,4 @@
-package org.unipi.team.generator.util;
+package org.unipi.team.util;
 
 public class CommonImports {
     protected static final String IMPORT_SQL_STATEMENT = "import java.sql.*;\n";

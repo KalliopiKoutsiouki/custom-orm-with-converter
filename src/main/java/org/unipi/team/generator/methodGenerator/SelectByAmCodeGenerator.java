@@ -1,6 +1,4 @@
-package org.unipi.team.generator.impl;
-
-import org.unipi.team.generator.MethodCodeGenerator;
+package org.unipi.team.generator.methodGenerator;
 
 public class SelectByAmCodeGenerator extends MethodCodeGenerator {
 

@@ -1,9 +1,9 @@
-package org.unipi.team.generator.impl;
+package org.unipi.team.generator.annotationGenerator.impl;
 
 import org.unipi.team.annotation.transaction.Field;
 import org.unipi.team.annotation.transaction.Table;
 import org.unipi.team.annotation.transaction.ID;
-import org.unipi.team.generator.AnnotationCodeGenerator;
+import org.unipi.team.generator.annotationGenerator.AnnotationCodeGenerator;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;

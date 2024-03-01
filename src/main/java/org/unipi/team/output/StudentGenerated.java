@@ -20,6 +20,7 @@ public class StudentGenerated {
 
    private boolean postGraduate;
 
+    public StudentGenerated(){};
     public StudentGenerated(String AM, String email, int yearOfStudies, String fullName, boolean postGraduate) {
         this.AM = AM;
         this.email = email;
@@ -95,25 +96,6 @@ public class StudentGenerated {
         }
     }
 
-    public static void insertStudentGenerated(StudentGenerated student){
-        try {
-            Connection connection = connect();
-            String sql = "INSERT INTO Student (AM, Email, YearOfStudies, FullName, PostGraduate) VALUES (?, ?, ?, ?, ?);";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, student.getAM());
-            pstmt.setString(2, student.getEmail());
-            pstmt.setInt(3, student.getYearOfStudies());
-            pstmt.setString(4, student.getFullName());
-            pstmt.setBoolean(5, student.getPostGraduate());
-            pstmt.executeUpdate();
-            pstmt.close();
-            connection.close();
-            System.out.println("Student inserted successfully");
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentGenerated.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public static List<StudentGenerated> getAllStudentGenerateds() {
         try {
             Connection connection = connect();
@@ -137,6 +119,23 @@ public class StudentGenerated {
         } catch (SQLException ex) {
             Logger.getLogger(StudentGenerated.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+
+    public static int deleteStudentGenerated(String AM) {
+        try {
+            Connection connection = connect();
+            String sql = "DELETE FROM Student WHERE AM = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, AM);
+            int rowsAffected = pstmt.executeUpdate();
+            pstmt.close();
+            connection.close();
+            System.out.println("Student deleted successfully");
+            return rowsAffected;
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentGenerated.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
         }
     }
 
@@ -166,20 +165,22 @@ public class StudentGenerated {
         }
     }
 
-    public static int deleteStudentGenerated(String AM) {
+    public static void insertStudentGenerated(StudentGenerated student){
         try {
             Connection connection = connect();
-            String sql = "DELETE FROM Student WHERE AM = ?";
+            String sql = "INSERT INTO Student (AM, Email, YearOfStudies, FullName, PostGraduate) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, AM);
-            int rowsAffected = pstmt.executeUpdate();
+            pstmt.setString(1, student.getAM());
+            pstmt.setString(2, student.getEmail());
+            pstmt.setInt(3, student.getYearOfStudies());
+            pstmt.setString(4, student.getFullName());
+            pstmt.setBoolean(5, student.getPostGraduate());
+            pstmt.executeUpdate();
             pstmt.close();
             connection.close();
-            System.out.println("Student deleted successfully");
-            return rowsAffected;
+            System.out.println("Student inserted successfully");
         } catch (SQLException ex) {
             Logger.getLogger(StudentGenerated.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
         }
     }
 

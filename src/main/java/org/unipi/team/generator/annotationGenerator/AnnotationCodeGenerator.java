@@ -1,4 +1,4 @@
-package org.unipi.team.generator;
+package org.unipi.team.generator.annotationGenerator;
 
 import java.lang.annotation.Annotation;
 

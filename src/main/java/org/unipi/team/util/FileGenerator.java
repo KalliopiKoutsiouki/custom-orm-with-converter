@@ -1,4 +1,4 @@
-package org.unipi.team.generator.util;
+package org.unipi.team.util;
 
 import java.io.BufferedWriter;
 import java.io.File;

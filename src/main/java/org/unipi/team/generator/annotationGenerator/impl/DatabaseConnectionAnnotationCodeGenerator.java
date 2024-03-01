@@ -1,7 +1,7 @@
-package org.unipi.team.generator.impl;
+package org.unipi.team.generator.annotationGenerator.impl;
 
 import org.unipi.team.annotation.transaction.Database;
-import org.unipi.team.generator.AnnotationCodeGenerator;
+import org.unipi.team.generator.annotationGenerator.AnnotationCodeGenerator;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

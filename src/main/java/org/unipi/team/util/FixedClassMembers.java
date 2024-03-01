@@ -1,6 +1,6 @@
-package org.unipi.team.generator.util;
+package org.unipi.team.util;
 
-import static org.unipi.team.generator.util.CommonImports.*;
+import static org.unipi.team.util.CommonImports.*;
 
 public class FixedClassMembers {
 

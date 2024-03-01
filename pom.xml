@@ -48,11 +48,6 @@
       <artifactId>lombok_attempt</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.example</groupId>
-      <artifactId>lombok_attempt</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
 
   </dependencies>
 </project>

@@ -1,7 +1,5 @@
-package org.unipi.team.generator.impl;
+package org.unipi.team.generator.methodGenerator;
 
-
-import org.unipi.team.generator.MethodCodeGenerator;
 
 public class SelectAllMethodCodeGenerator extends MethodCodeGenerator {
     public SelectAllMethodCodeGenerator(StringBuilder sb) {
