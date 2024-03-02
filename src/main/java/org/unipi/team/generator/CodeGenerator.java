@@ -53,17 +53,14 @@ public class CodeGenerator {
             // Read the contents of the generated .java file
             String classString = new String(Files.readAllBytes(Paths.get(FILEPATH)));
             classString.trim();
-            int lastIndex = classString.length() - 1;
-            // Remove the last character
-            String removeClose = classString.substring(0, lastIndex-3);
-            System.out.println(removeClose);
+            int closingBracket = classString.length() - 4;
+            String removeClose = classString.substring(0, closingBracket);
             return removeClose;
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     private static Annotation[] getMethodAnnotations (Class<?> clazz){
         Method[] methods = clazz.getDeclaredMethods();

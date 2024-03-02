@@ -1,11 +1,12 @@
 package org.unipi.team.util;
 
+import static org.unipi.team.App.OUTPUT_DIR;
 import static org.unipi.team.util.CommonImports.*;
 
 public class FixedClassMembers {
 
     private static final String MAIN_EXECUTE_METHOD = "createTable()";
-    private static final String PACKAGE = "package org.unipi.team.output;\n\n";
+    private static final String PACKAGE = "package org.unipi.team." + getOutputDir() + ";\n\n";
     public static void createClassHeader(StringBuilder sb, boolean hasDB, boolean hasDBMethodAnnotation) {
        sb.append(PACKAGE);
        if (hasDB) {
@@ -37,5 +38,13 @@ public class FixedClassMembers {
         sb.append("    }\n");
 
     }
+
+
+    private static String getOutputDir() {
+        String directory = OUTPUT_DIR;
+        String[] parts = directory.split("/");
+        return parts[parts.length - 1];
+    }
+
 
 }
