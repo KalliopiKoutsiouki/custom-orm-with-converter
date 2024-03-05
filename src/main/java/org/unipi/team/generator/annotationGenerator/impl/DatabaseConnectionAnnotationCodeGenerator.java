@@ -1,5 +1,6 @@
 package org.unipi.team.generator.annotationGenerator.impl;
 
+import org.unipi.team.annotation.consts.DataSource;
 import org.unipi.team.annotation.transaction.Database;
 import org.unipi.team.generator.annotationGenerator.AnnotationCodeGenerator;
 
@@ -7,15 +8,28 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.Properties;
 
+/**
+ * Implementation of the {@link AnnotationCodeGenerator} interface for generating code
+ * related to the {@link Database} annotation.
+ */
 public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCodeGenerator {
 
     private StringBuilder sb;
-    private  Properties properties = new Properties();
+    private Properties properties = new Properties();
     public DatabaseConnectionAnnotationCodeGenerator(StringBuilder sb) {
         this.sb = sb;
         this.properties = getDBCredentials();
     }
 
+    /**
+     * Generates the Connect method based on the provided {@link Database} annotation.
+     * The Connect method is responsible for creating a connection with the specified database.
+     *
+     * @param sb          The StringBuilder used for appending generated code.
+     * @param annotation  The {@link Database} annotation for which code should be generated.
+     * @param className   The name of the class associated with the annotation.
+     * @throws Exception  If an error occurs during the code generation process.
+     */
     @Override
     public void generate(StringBuilder sb,  Annotation annotation, String className) throws Exception {
         if (annotation != null) {
@@ -47,6 +61,11 @@ public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCode
 
     }
 
+    /**
+     * Loads database credentials from the connection.properties file.
+     *
+     * @return A Properties object containing database credentials.
+     */
     private Properties getDBCredentials() {
         try {
             properties.load(DatabaseConnectionAnnotationCodeGenerator.class.getResourceAsStream("/connection.properties"));
@@ -56,6 +75,16 @@ public class DatabaseConnectionAnnotationCodeGenerator implements AnnotationCode
         return properties;
     }
 
+    /**
+     * Configures the JDBC driver based on the specified database type in the {@link Database} annotation.
+     * It supports the following databases:
+     * - DERBY
+     * - MYSQL
+     * - MARIADB
+     * - H2
+     * @see {@link DataSource}
+     * @param dbAnnotation The {@link Database} annotation specifying the database type.
+     */
     private void configureJdbcDriver(Database dbAnnotation) {
         switch (dbAnnotation.dbtype()) {
             case DERBY:

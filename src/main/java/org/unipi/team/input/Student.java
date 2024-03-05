@@ -5,6 +5,7 @@ package org.unipi.team.input;
 import org.example.annotation.ArgsConstructor;
 import org.example.annotation.Getters;
 import org.example.annotation.Setters;
+import org.example.annotation.ToString;
 import org.unipi.team.annotation.consts.DataSource;
 import org.unipi.team.annotation.transaction.*;
 
@@ -14,10 +15,10 @@ import java.util.List;
 @Getters
 @Setters
 @ArgsConstructor
+@ToString
 public class Student {
     @ID
     @Field(name="AM",type="Text")
-
     String AM;
     @Field(name="Email",type="Text", required=true)
     String email;

@@ -22,10 +22,6 @@ public class FixedClassMembers {
         sb.append(IMPORT_LOGGER);
     }
 
-    public static void createClassDeclaration(StringBuilder sb, String className) {
-        sb.append(String.format("public class %s {\n\n", className));
-    }
-
     public static void closeClassDefinition(StringBuilder sb) {
         sb.append("}\n");
     }
@@ -38,7 +34,6 @@ public class FixedClassMembers {
         sb.append("    }\n");
 
     }
-
 
     private static String getOutputDir() {
         String directory = OUTPUT_DIR;

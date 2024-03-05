@@ -1,5 +1,10 @@
 package org.unipi.team.generator.methodGenerator;
 
+/**
+ * Generates code for a SELECT BY AM (unique identifier) operation based on the provided class.
+ * This class extends the {@link MethodCodeGenerator} abstract class and implements the logic to create
+ * an SQL SELECT statement with a WHERE clause to retrieve a record by its AM.
+ */
 public class SelectByAmCodeGenerator extends MethodCodeGenerator {
 
     public SelectByAmCodeGenerator(StringBuilder sb) {
@@ -8,7 +13,7 @@ public class SelectByAmCodeGenerator extends MethodCodeGenerator {
     @Override
     public void generateMethod(StringBuilder sb, Class<?> clazz) {
         String generatedClassName = clazz.getSimpleName() + "Generated";
-        sb.append("    public static ").append(generatedClassName).append(" get").append(generatedClassName).append("ByAM(String AM) {\n");
+        sb.append("    public static ").append(generatedClassName).append(" get").append(clazz.getSimpleName()).append("ByAM(String AM) {\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");
         sb.append("            String sql = \"SELECT * FROM ").append(getTableName(clazz)).append(" WHERE AM = ?\";\n");

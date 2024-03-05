@@ -8,6 +8,10 @@ import org.unipi.team.generator.annotationGenerator.AnnotationCodeGenerator;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
+/**
+ * Implementation of the {@link AnnotationCodeGenerator} interface for generating code
+ * related to the {@link Table} annotation.
+ */
 public class TableAnnotationCodeGenerator implements AnnotationCodeGenerator {
 
     private StringBuilder sb;
@@ -16,15 +20,20 @@ public class TableAnnotationCodeGenerator implements AnnotationCodeGenerator {
         this.sb = sb;
     }
 
+    /**
+     * Generates the createTable method based on the provided {@link Table} annotation.
+     *
+     * @param sb          The StringBuilder used for appending generated code.
+     * @param annotation  The {@link Table} annotation for which code should be generated.
+     * @param className   The name of the class associated with the annotation.
+     * @throws Exception  If an error occurs during the code generation process.
+     */
     @Override
     public void generate(StringBuilder sb, Annotation annotation, String className) throws Exception {
 
         Class<?> clazz = Class.forName("org.unipi.team.input." + className );
         className = className + "Generated";
         if (annotation != null) {
-//            generateFields(clazz);
-//            generateConstructors(clazz);
-//            generateGettersAndSetters(clazz);
             Table tableAnnotation = (Table) annotation;
             sb.append("    private static void createTable() {\n");
             sb.append("        try {\n");
@@ -35,11 +44,12 @@ public class TableAnnotationCodeGenerator implements AnnotationCodeGenerator {
 
             java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
 
-            //check for multiple @ID annotations
+            // Check for multiple @ID annotations
             long cntIdAnnotations = Arrays.stream(fields)
                     .filter(field -> field.isAnnotationPresent(ID.class))
                     .count();
             if (cntIdAnnotations <=1) {
+                //Generate code for the fields of the table
                 Arrays.stream(fields).sequential().forEach(field -> generateFieldsForTable(field));
             } else {
                 throw new IllegalStateException("Multiple primary keys are not allowed!");
@@ -63,6 +73,11 @@ public class TableAnnotationCodeGenerator implements AnnotationCodeGenerator {
         }
     }
 
+    /**
+     * Generates code for the fields of the table based on the {@link Field} annotation.
+     *
+     * @param field The field for which code should be generated.
+     */
     private void generateFieldsForTable(java.lang.reflect.Field field) {
         if (field.isAnnotationPresent(Field.class)) {
             Field fieldAnnotation = field.getAnnotation(Field.class);
@@ -78,74 +93,4 @@ public class TableAnnotationCodeGenerator implements AnnotationCodeGenerator {
             sb.append(", ");
         }
     }
-
-//    private void generateFields(Class<?> clazz) {
-//        java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
-//        for (java.lang.reflect.Field field : fields) {
-//            if (field.isAnnotationPresent(Field.class)) {
-//                String fieldName = field.getName();
-//                String fieldType = field.getType().getSimpleName();
-//                sb.append(String.format("    private %s %s;\n", fieldType, fieldName));
-//            }
-//        }
-//        sb.append("\n");
-//    }
-//
-//    private void generateConstructors(Class<?> clazz) {
-//        generateEmptyConstructor(clazz);
-//        generateAllFieldsConstructor(clazz);
-//    }
-//
-//    private void generateEmptyConstructor(Class<?> clazz) {
-//        sb.append(String.format("    public %s() {\n", clazz.getSimpleName()));
-//        sb.append("    }\n\n");
-//    }
-//
-//    private void generateAllFieldsConstructor(Class<?> clazz) {
-//        sb.append(String.format("    public %s(", clazz.getSimpleName()));
-//        java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
-//        for (java.lang.reflect.Field field : fields) {
-//            if (field.isAnnotationPresent(Field.class)) {
-//                String fieldName = field.getName();
-//                String fieldType = field.getType().getSimpleName();
-//                sb.append(String.format("%s %s, ", fieldType, fieldName));
-//            }
-//        }
-//        // Remove the last comma and space if there are fields
-//        if (fields.length > 0) {
-//            sb.setLength(sb.length() - 2);
-//        }
-//        sb.append(") {\n");
-//        // Initialize fields in the constructor
-//        for (java.lang.reflect.Field field : fields) {
-//            if (field.isAnnotationPresent(Field.class)) {
-//                String fieldName = field.getName();
-//                sb.append(String.format("        this.%s = %s;\n", fieldName, fieldName));
-//            }
-//        }
-//        sb.append("    }\n\n");
-//    }
-//    private void generateGettersAndSetters(Class<?> clazz) {
-//        java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
-//        for (java.lang.reflect.Field field : fields) {
-//            if (field.isAnnotationPresent(Field.class)) {
-//                String fieldName = field.getName();
-//                String fieldType = field.getType().getSimpleName();
-//
-//                // Generate getter method
-//                sb.append(String.format("    public %s get%s() {\n", fieldType, capitalize(fieldName)));
-//                sb.append(String.format("        return %s;\n", fieldName));
-//                sb.append("    }\n\n");
-//
-//                // Generate setter method
-//                sb.append(String.format("    public void set%s(%s %s) {\n", capitalize(fieldName), fieldType, fieldName));
-//                sb.append(String.format("        this.%s = %s;\n", fieldName, fieldName));
-//                sb.append("    }\n\n");
-//            }
-//        }
-//    }
-
-//    private String capitalize(String str) {
-//        return str.substring(0, 1).toUpperCase() + str.substring(1);
-//    }
 }

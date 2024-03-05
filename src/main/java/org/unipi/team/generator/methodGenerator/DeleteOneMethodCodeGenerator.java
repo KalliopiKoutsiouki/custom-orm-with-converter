@@ -1,5 +1,10 @@
 package org.unipi.team.generator.methodGenerator;
 
+/**
+ * Generates code for a Delete operation based on the provided class and a specified unique identifier (AM).
+ * This class extends the {@link MethodCodeGenerator} abstract class and implements the logic to create
+ * an SQL DELETE statement with a WHERE clause to delete a record by its AM field.
+ */
 public class DeleteOneMethodCodeGenerator extends MethodCodeGenerator {
     public DeleteOneMethodCodeGenerator(StringBuilder sb) {
     }
@@ -7,7 +12,7 @@ public class DeleteOneMethodCodeGenerator extends MethodCodeGenerator {
     @Override
     public void generateMethod(StringBuilder sb, Class<?> clazz) {
         String generatedClassName = clazz.getSimpleName() + "Generated";
-        sb.append("    public static int delete").append(generatedClassName).append("(String AM) {\n");
+        sb.append("    public static int delete").append(clazz.getSimpleName()).append("(String AM) {\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");
         sb.append("            String sql = \"DELETE FROM ").append(getTableName(clazz)).append(" WHERE AM = ?\";\n");

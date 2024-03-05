@@ -5,6 +5,11 @@ import org.unipi.team.annotation.transaction.Field;
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * Generates code for an INSERT operation based on the provided class and its fields.
+ * This class extends the {@link MethodCodeGenerator} abstract class and implements the logic to create
+ * an SQL INSERT statement, set values, and execute the insert operation for the specified class.
+ */
 public class InsertMethodCodeGenerator extends MethodCodeGenerator {
 
     private String generatedClassName;
@@ -14,7 +19,7 @@ public class InsertMethodCodeGenerator extends MethodCodeGenerator {
     @Override
     public void generateMethod(StringBuilder sb, Class<?> clazz) {
         generatedClassName = clazz.getSimpleName() + "Generated";
-        sb.append("    public static void insert").append(generatedClassName).append("(").append(generatedClassName).append(" ").append(clazz.getSimpleName().toLowerCase()).append("){\n");
+        sb.append("    public static void insert").append(clazz.getSimpleName()).append("(").append(generatedClassName).append(" ").append(clazz.getSimpleName().toLowerCase()).append("){\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");
         sb.append("            String sql = \"INSERT INTO ").append(getTableName(clazz)).append(" (");

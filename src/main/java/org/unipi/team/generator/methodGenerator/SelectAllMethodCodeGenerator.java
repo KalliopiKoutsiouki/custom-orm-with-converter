@@ -1,6 +1,10 @@
 package org.unipi.team.generator.methodGenerator;
 
-
+/**
+ * Generates code for a SELECT ALL operation based on the provided class.
+ * This class extends the {@link MethodCodeGenerator} abstract class and implements the logic to create
+ * an SQL SELECT statement to retrieve all records from the specified table.
+ */
 public class SelectAllMethodCodeGenerator extends MethodCodeGenerator {
     public SelectAllMethodCodeGenerator(StringBuilder sb) {
     }
@@ -8,7 +12,7 @@ public class SelectAllMethodCodeGenerator extends MethodCodeGenerator {
     @Override
     public void generateMethod(StringBuilder sb, Class<?> clazz) {
         String generatedClassName = clazz.getSimpleName() + "Generated";
-        sb.append("    public static List<").append(generatedClassName).append("> getAll").append(generatedClassName).append("s() {\n");
+        sb.append("    public static List<").append(generatedClassName).append("> getAll").append(clazz.getSimpleName()).append("s() {\n");
         sb.append("        try {\n");
         sb.append("            Connection connection = connect();\n");
         sb.append("            String sql = \"SELECT * FROM ").append(getTableName(clazz)).append("\";\n");
